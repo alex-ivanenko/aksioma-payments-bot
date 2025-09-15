@@ -1,0 +1,23 @@
+<service>
+  <id>aksioma-payments-bot</id>
+  <name>Aksioma Payments Bot</name>
+  <description>Telegram bot for tracking payments via Airtable</description>
+  <startmode>Automatic</startmode>
+
+  <executable>C:\Projects\aksioma-payments-bot\.venv\Scripts\python.exe</executable>
+  <arguments>"-m" "bot.main"</arguments>
+  <workingdirectory>C:\Projects\aksioma-payments-bot</workingdirectory>
+
+  <logpath>C:\Projects\aksioma-payments-bot\logs</logpath>
+  <log mode="roll-by-size">
+    <sizeThreshold>10240</sizeThreshold>
+    <keepFiles>5</keepFiles>
+  </log>
+  
+  <startmode>Automatic</startmode>
+
+  <onfailure action="restart" delay="10 sec" />
+  <onfailure action="restart" delay="10 sec" />
+  <onfailure action="restart" delay="10 sec" />
+  <onfailure action="none" />
+</service>
