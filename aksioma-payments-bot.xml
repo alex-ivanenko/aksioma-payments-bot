@@ -1,3 +1,4 @@
+# Config for WinSW
 <service>
   <id>aksioma-payments-bot</id>
   <name>Aksioma Payments Bot</name>
