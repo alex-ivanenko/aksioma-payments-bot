@@ -71,6 +71,7 @@ python -m bot.main
 Также логи выводятся в консоль при запуске.
 
 ## Структура проекта
+```text
 aksioma-payments-bot/
 ├── bot/                   # Основной код бота
 │   ├── main.py            # Точка входа
@@ -82,6 +83,7 @@ aksioma-payments-bot/
 ├── .gitignore             # Файлы, исключённые из Git
 ├── requirements.txt       # Зависимости
 └── README.md              # Документация
+```
 
 ## License
 This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
