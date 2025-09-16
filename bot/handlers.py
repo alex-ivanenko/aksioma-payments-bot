@@ -105,7 +105,7 @@ async def handle_cancel(message: Message, state: FSMContext):
 # Обработчик кнопки "Пропустить" на шаге вложения (Сценарий 2)
 @router.message(PaymentForm.attachment, F.text == "Пропустить")
 async def skip_attachment(message: Message, state: FSMContext):
-    await state.update_data(attachment=None)  # ← None вместо "", чтобы отличать "не было" от "было, но пропущено"
+    await state.update_data(attachment=None)
     await message.answer("Введите сумму:", reply_markup=skip_cancel_kb)
     await state.set_state(PaymentForm.amount)
 
@@ -113,7 +113,7 @@ async def skip_attachment(message: Message, state: FSMContext):
 @router.message(PaymentForm.amount, F.text)
 async def process_amount(message: Message, state: FSMContext):
     if message.text == "Пропустить":
-        await state.update_data(amount=None)  # ← Исправлено: None для числового поля
+        await state.update_data(amount=None)
         await message.answer("Введите примечание:", reply_markup=skip_cancel_kb)
         await state.set_state(PaymentForm.note)
         return
@@ -182,7 +182,7 @@ async def _save_data_and_finish(message: Message, state: FSMContext):
 
         # Подготавливаем данные для Airtable
         fields = {
-            "Сумма": data.get('amount'),      # ← None для числового поля
+            "Сумма": data.get('amount'),
             "Примечание": data.get('note', ""),
             "Заказ": data.get('order', ""),
             "Отправитель": sender_name
