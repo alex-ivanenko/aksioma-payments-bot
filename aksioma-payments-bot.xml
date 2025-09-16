@@ -11,14 +11,16 @@
 
   <logpath>C:\Projects\aksioma-payments-bot\logs</logpath>
   <log mode="roll-by-size">
-    <sizeThreshold>10240</sizeThreshold>
-    <keepFiles>5</keepFiles>
+    <sizeThreshold>5120</sizeThreshold>
+    <keepFiles>2</keepFiles>
   </log>
   
   <startmode>Automatic</startmode>
 
   <onfailure action="restart" delay="10 sec" />
-  <onfailure action="restart" delay="10 sec" />
-  <onfailure action="restart" delay="10 sec" />
-  <onfailure action="none" />
+  <onfailure action="restart" delay="30 sec" />
+  <onfailure action="restart" delay="1 min" />
+  <onfailure action="restart" delay="5 min" />
+  <onfailure action="restart" delay="10 min" />
+
 </service>
