@@ -49,7 +49,7 @@ def is_authorized(user) -> bool:
 @router.message(CommandStart())
 async def cmd_start(message: Message):
     if not is_authorized(message.from_user):
-        await message.answer("У вас нет доступа к этому боту!")
+        await message.answer("🚫 У вас нет доступа к этому боту")
         return
     await message.answer(
         "Добро пожаловать!\nНажмите кнопку ниже, чтобы добавить оплату",
@@ -60,7 +60,7 @@ async def cmd_start(message: Message):
 @router.message(F.text == "Добавить оплату")
 async def start_payment_by_button(message: Message, state: FSMContext):
     if not is_authorized(message.from_user):
-        await message.answer("У вас нет доступа к этому действию!")
+        await message.answer("🚫 У вас нет доступа к этому действию")
         return
     await message.answer("Добавьте вложение:", reply_markup=skip_cancel_kb)
     await state.set_state(PaymentForm.attachment)
@@ -74,7 +74,7 @@ async def start_payment_by_button(message: Message, state: FSMContext):
 }))
 async def start_payment_by_attachment(message: Message, state: FSMContext, bot: Bot):
     if not is_authorized(message.from_user):
-        await message.answer("У вас нет доступа к этому действию!")
+        await message.answer("🚫 У вас нет доступа к этому действию")
         return
 
     # Сохраняем file_id вложения
@@ -128,7 +128,7 @@ async def process_amount(message: Message, state: FSMContext):
         if amount <= 0:
             raise ValueError
     except ValueError:
-        await message.answer("Введите положительное число!", reply_markup=skip_cancel_kb)
+        await message.answer("❌ Введите положительное число", reply_markup=skip_cancel_kb)
         return
 
     await state.update_data(amount=amount)
@@ -180,13 +180,18 @@ async def _save_data_and_finish(message: Message, state: FSMContext):
         if user.last_name:
             sender_name += " " + user.last_name
 
-        # Подготавливаем данные для Airtable
+        # --- Подготавливаем данные для Airtable ---
         fields = {
-            "Сумма": data.get('amount'),
-            "Примечание": data.get('note', ""),
-            "Заказ": data.get('order', ""),
             "Отправитель": sender_name
         }
+        
+        # Добавляем поля в Airtable только если они не пустые
+        if data.get('amount'):
+            fields["Сумма"] = data.get('amount')
+        if data.get('note'):
+            fields["Примечание"] = data.get('note')
+        if data.get('order'):
+            fields["Заказ"] = data.get('order')
 
         # Обрабатываем вложение
         attachment_value = []
@@ -197,26 +202,40 @@ async def _save_data_and_finish(message: Message, state: FSMContext):
                 file = await bot.get_file(file_id)
                 file_url = f"https://api.telegram.org/file/bot{TELEGRAM_BOT_TOKEN}/{file.file_path}"
                 attachment_value = [{"url": file_url}]
+                fields["Вложение"] = attachment_value
             except Exception as e:
                 logger.error(f"Ошибка при получении ссылки на файл: {e}")
-                # Оставляем пустой массив, чтобы не сломать запись
-                attachment_value = []
-
-        fields["Вложение"] = attachment_value
 
         # Отправляем в Airtable
         await airtable_client.create_record(fields)
 
-        # Формируем итоговое сообщение для пользователя
-        attachment_display = "Прикреплено" if file_id else ""
+        # --- Формируем итоговое сообщение для пользователя, исключая пустые строки ---
+        result_lines = [f"✅ Запись добавлена:\n"]
+        
+        # Добавляем номер заказа, если он есть
+        if data.get('order'):
+            result_lines.append(f"<b>Заказ:</b> {data.get('order')}")
+        
+        # Добавляем информацию о вложении, если оно есть
+        if file_id:
+            result_lines.append(f"<b>Вложение:</b> 📎")
+        
+        # Добавляем сумму, если она есть
+        if data.get('amount'):
+            result_lines.append(f"<b>Сумма:</b> {data.get('amount')}")
+        
+        # Добавляем примечание, если оно есть
+        if data.get('note'):
+            result_lines.append(f"<b>Примечание:</b> {data.get('note')}")
+        
+        # Добавляем отправителя (всегда)
+        result_lines.append(f"<b>Отправитель:</b> {sender_name}")
+
+        # Объединяем все строки в одно сообщение
+        final_message = "\n".join(result_lines)
 
         await message.answer(
-            f"Запись добавлена:\n\n"
-            f"<b>Вложение:</b> {attachment_display}\n"
-            f"<b>Сумма:</b> {amount if (amount:=data.get('amount')) else ''}\n"
-            f"<b>Примечание:</b> {data.get('note', '')}\n"
-            f"<b>Заказ:</b> {data.get('order', '')}\n"
-            f"<b>Отправитель:</b> {sender_name}",
+            final_message,
             reply_markup=main_kb
         )
 
@@ -227,3 +246,7 @@ async def _save_data_and_finish(message: Message, state: FSMContext):
         )
     finally:
         await state.clear()
+        
+
+        
+
