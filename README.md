@@ -87,7 +87,10 @@ aksioma-payments-bot/
 │   ├── config.py          # Загрузка конфигурации
 │   ├── states.py          # Состояния FSM
 │   ├── handlers.py        # Обработчики сообщений
+│   ├── cache_manager.py
 │   └── airtable_client.py # Клиент для работы с Airtable
+├── cache/
+│   ├── orders_cache.json
 ├── .env.example           # Шаблон конфигурации
 ├── .gitignore             # Файлы, исключённые из Git
 ├── requirements.txt       # Зависимости
