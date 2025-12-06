@@ -21,7 +21,8 @@ if not TELEGRAM_BOT_TOKEN:
 AIRTABLE_API_KEY = os.getenv("AIRTABLE_API_KEY")
 AIRTABLE_BASE_ID = os.getenv("AIRTABLE_BASE_ID")
 AIRTABLE_TABLE_ID = os.getenv("AIRTABLE_TABLE_ID")
+AIRTABLE_ORDERS_TABLE_ID = os.getenv("AIRTABLE_ORDERS_TABLE_ID")
 
 # Проверяем, что всё указано
-if not all([AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_ID]):
+if not all([AIRTABLE_API_KEY, AIRTABLE_BASE_ID, AIRTABLE_TABLE_ID, AIRTABLE_ORDERS_TABLE_ID]):
     raise ValueError("Один или несколько Airtable параметров не указаны в .env")
