@@ -82,19 +82,19 @@ python -m bot.main
 ## 📂 Структура проекта
 ```text
 aksioma-payments-bot/
-├── bot/                   # Основной код бота
-│   ├── main.py            # Точка входа
-│   ├── config.py          # Загрузка конфигурации
-│   ├── states.py          # Состояния FSM
-│   ├── handlers.py        # Обработчики сообщений
+├── bot/
+│   ├── airtable_client.py # Клиент для работы с Airtable
 │   ├── cache_manager.py
-│   └── airtable_client.py # Клиент для работы с Airtable
+│   ├── config.py          # Загрузка конфигурации
+│   ├── handlers.py        # Обработчики сообщений
+│   ├── main.py            # Точка входа
+│   └── states.py          # Состояния FSM
 ├── cache/
 │   ├── orders_cache.json
 ├── .env.example           # Шаблон конфигурации
 ├── .gitignore             # Файлы, исключённые из Git
-├── requirements.txt       # Зависимости
-└── README.md              # Документация
+├── README.md              # Документация
+└── requirements.txt       # Зависимости
 ```
 
 ## 📜 License
