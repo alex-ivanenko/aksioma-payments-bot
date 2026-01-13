@@ -4,6 +4,18 @@
 ![Gemini](https://img.shields.io/badge/Gemini-8E75B2)
 ![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c)
 
+![Qwen](https://img.shields.io/badge/_-008BB9?style=flat&logo=alibabacloud&logoColor=white)
+![Gemini](https://img.shields.io/badge/_-8E75B2?style=flat&logo=googlegemini&logoColor=white)
+![ChatGPT](https://img.shields.io/badge/_-74aa9c?style=flat&logo=openai&logoColor=white)
+
+![Qwen](https://img.shields.io/badge/Qwen-008BB9?style=for-the-badge&logo=alibabacloud&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini-8E75B2?style=for-the-badge&logo=googlegemini&logoColor=white)
+![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?style=for-the-badge&logo=openai&logoColor=white)
+
+![Qwen](https://img.shields.io/badge/Qwen-008BB9?logo=alibabacloud&logoColor=white)
+![Gemini](https://img.shields.io/badge/Gemini-8E75B2?logo=googlegemini&logoColor=white)
+![ChatGPT](https://img.shields.io/badge/ChatGPT-74aa9c?logo=openai&logoColor=white)
+
 Telegram-бот для учёта оплат с сохранением в Airtable.
 Позволяет авторизованным пользователям добавлять записи: номер заказа, вложение(pdf, картинка,..), сумма, примечание.
 Автоматически сохраняет отправителя.
