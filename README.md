@@ -1,4 +1,5 @@
 # 🤖 Аксиома Оплаты Бот
+![AI Assisted](https://img.shields.io/badge/AI-Assisted-blue)
 
 Telegram-бот для учёта оплат с сохранением в Airtable.
 Позволяет авторизованным пользователям добавлять записи: номер заказа, вложение(pdf, картинка,..), сумма, примечание.
@@ -96,6 +97,8 @@ aksioma-payments-bot/
 ├── README.md              # Документация
 └── requirements.txt       # Зависимости
 ```
+## ℹ️ Disclaimer
+This project was created with the assistance of AI tools. 
 
 ## 📜 License
 This project is licensed under the MIT License – see the [LICENSE](LICENSE) file for details.
